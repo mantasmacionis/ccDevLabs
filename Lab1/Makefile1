@@ -1,0 +1,27 @@
+#Joseph Kehoe 13/9/2017
+#First simple Makefile
+#Used to contain commands to compile projects
+#Equivalent(?) to a project file in VStudio -- only better!
+#See http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/ for info.
+
+
+CC=g++
+CFLAGS= -std=c++11 -pthread
+MUTFILES = mutualEx.cpp Semaphore.cpp
+DFLAGS = -08 -g
+
+%.o: %.cpp
+	$(CC) -c -o $@ $< $(CFLAGS) $(DEBUGFLAGS)
+
+HELLO: helloThreads.cpp Semaphore.cpp
+	g++ -std=c++11 -pthread helloThreads.cpp
+
+MUTUAL: $(MUTFILES)
+	$(CC) $(CFLAGS) $(MUTFILES) -o muty
+
+DEBUG: $(MUTFILES)
+	$(CC) $(CLFAGS) $(DFLAGS) mutualEx.cpp Semaphores.cpp
+
+CLEAN:
+	rm *.o
+	rm *~
