@@ -1,0 +1,9 @@
+CC=g++
+CFLAGS= -Wall -o fred
+CPPFILES: rendezvous.cpp semaphore.cpp
+
+RENDEZVOUS: $(CPPFILES)
+	    $(CC) $(CPPFILES) $(CFLAGS)
+
+CLEAN:
+	rm fred a.out *.o
