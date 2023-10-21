@@ -1,40 +1,46 @@
-#include "Semaphore.h"
 #include <iostream>
 #include <thread>
-#include <unistd.h>
+#include <mutex>
+#include <condition_variable>
 
-/*! displays a message first*/
-void taskOne(std::shared_ptr<Semaphore> theSemaphore, int delay){
-  sleep(delay);
-  std::cout <<"I ";
-  std::cout << "must ";
-  std::cout << "print ";
-  std::cout << "first"<<std::endl;
-  //tell taskTwo to start now
+std::mutex mtx;
+std::condition_variable cv;
+bool taskOneExecuted = false;
+
+/*! displays a message first */
+void taskOne(int delay) {
+    std::this_thread::sleep_for(std::chrono::seconds(delay));
+    std::unique_lock<std::mutex> lock(mtx);
+    std::cout << "I ";
+    std::cout << "must ";
+    std::cout << "print ";
+    std::cout << "first" << std::endl;
+    taskOneExecuted = true;
+    cv.notify_one();  // Signal that taskOne has completed
 }
 
-/*! displays a message second*/
-void taskTwo(std::shared_ptr<Semaphore> theSemaphore){
-  //wait here until taskOne finishes...
-  std::cout <<"This ";
-  std::cout << "will ";
-  sleep(5);
-  std::cout << "appear ";
-  std::cout << "second"<<std::endl;
+/*! displays a message second */
+void taskTwo() {
+    std::unique_lock<std::mutex> lock(mtx);
+    cv.wait(lock, [] { return taskOneExecuted; });  // Wait for taskOne to complete
+    std::cout << "This ";
+    std::cout << "will ";
+    std::this_thread::sleep_for(std::chrono::seconds(5));
+    std::cout << "appear ";
+    std::cout << "second" << std::endl;
 }
 
+int main() {
+    std::thread threadOne, threadTwo;
 
-int main(void){
-  std::thread threadOne, threadTwo;
-  std::shared_ptr<Semaphore> sem( new Semaphore);
-  sem->Signal();sem->Wait();//these serve no purpose
-  /**< Launch the threads  */
-  int taskOneDelay=5;
-  threadOne=std::thread(taskTwo,sem);
-  threadTwo=std::thread(taskOne,sem,taskOneDelay);
-  std::cout << "Launched from the main\n";
-   /**< Wait for the threads to finish */
-  threadOne.join();
-  threadTwo.join();
-  return 0;
+    int taskOneDelay = 5;
+    threadOne = std::thread(taskOne, taskOneDelay);
+    threadTwo = std::thread(taskTwo);
+
+    std::cout << "Launched from the main\n";
+
+    threadOne.join();
+    threadTwo.join();
+
+    return 0;
 }
