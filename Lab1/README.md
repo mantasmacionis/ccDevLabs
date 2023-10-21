@@ -13,7 +13,7 @@ It should contain information on
 
 ## Description
 
-Lab1 covers the use of semaphores, A simple renezvous and a simple mutual exclusion. Also an introduction to Makefiles and doxygen
+Lab1, an introductory lab. Covers the use of semaphores, A simple renezvous and a simple mutual exclusion. Also an introduction to Makefiles and doxygen
 
 ### License
 This project is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. - visit the http://creativecommons.org/licenses/by-nc-sa/4.0/ page for details.
@@ -27,12 +27,12 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 ### TO DO
 - 1
 - 2
-### List of files
+### List of files and what they contain
 - Semaphore.cpp 
 - Semaphore.h
 - HelloThreads.cpp
 - MutualEx.cpp
 - Makefile1
 
-### Other Information
+### Other relevant information
 
