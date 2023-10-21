@@ -13,7 +13,7 @@ It should contain information on
 
 ## Description
 
-Lab1, an introductory lab. Covers the use of semaphores, A simple renezvous and a simple mutual exclusion. Also an introduction to Makefiles and doxygen
+Lab 1 is an introductory laboratory exercise, focusing on the utilization of semaphores. It includes practical demonstrations of a basic rendezvous and mutual exclusion. Additionally, the lab offers an introduction to the usage of Makefiles and Doxygen for documentation purposes.
 
 ### License
 This project is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. - visit the http://creativecommons.org/licenses/by-nc-sa/4.0/ page for details.
@@ -21,6 +21,7 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 ### Authors
 - Mantas Macionis
 - C00242178@setu.ie
+- https://github.com/mantasmacionis/ccDevLabs/
 
 ### Platform
 - VSCodium used
