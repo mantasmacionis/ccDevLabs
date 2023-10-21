@@ -3,12 +3,12 @@
 ## Description
 
 Labs for the Concurrent Development Module.
-Lab1 - The Basics 
-Lab2 - Rendezvous
-Lab3 - Barrier
-Lab4 - Producer-Consumer
-Lab5 - Dining Philosophers
-Lab6 - OpenMP
+- Lab1 - The Basics 
+- Lab2 - Rendezvous
+- Lab3 - Barrier
+- Lab4 - Producer-Consumer
+- Lab5 - Dining Philosophers
+- Lab6 - OpenMP
 
 ## License
 
