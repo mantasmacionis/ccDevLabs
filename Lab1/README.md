@@ -23,6 +23,7 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 - Comment on makefile 
 - comment on cpp files
 - Add info on what each file contains to readme
+- use doxygen
 ### List of files and what they contain
 - Semaphore.cpp 
 - Semaphore.h
