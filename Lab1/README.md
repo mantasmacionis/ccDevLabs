@@ -13,7 +13,7 @@ It should contain information on
 
 ## Description
 
-Lab1 covers the use of semaphores, A simple renezvous and a simple mutual exclusion
+Lab1 covers the use of semaphores, A simple renezvous and a simple mutual exclusion. Also an introduction to Makefiles and doxygen
 
 ### License
 This project is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. - visit the http://creativecommons.org/licenses/by-nc-sa/4.0/ page for details.
