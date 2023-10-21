@@ -15,11 +15,11 @@ It should contain information on
 
 Lab1 covers the use of semaphores, A simple renezvous and a simple mutual exclusion
 
-## License
+### License
 This project is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. - visit the http://creativecommons.org/licenses/by-nc-sa/4.0/ page for details.
 
-## Authors
+### Authors
 Mantas Macionis
 C00242178@setu.ie
 
-##Platform
+### Platform
