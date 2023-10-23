@@ -2,7 +2,7 @@
 
 ## Description
 
-Lab 2 , The purpose of lab2 is to demonstrate the use of a rendezvous, text output is used to display this functionality, this lab also utilises semaphores.
+The purpose of lab2 is to demonstrate the use of a rendezvous, text output is used to display this functionality, this lab also utilises semaphores.
 
 ### License
 This project is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. - visit the http://creativecommons.org/licenses/by-nc-sa/4.0/ page for details.
