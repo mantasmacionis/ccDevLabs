@@ -5,7 +5,7 @@
 
 std::mutex mtx;
 std::condition_variable cv;
-bool taskOneExecuted = false;
+bool taskOneExecuted = false; //Created boolean to track whether task has been completed
 
 /*! displays a message first */
 void taskOne(int delay) {
@@ -15,14 +15,14 @@ void taskOne(int delay) {
     std::cout << "must ";
     std::cout << "print ";
     std::cout << "first" << std::endl;
-    taskOneExecuted = true;
-    cv.notify_one();  // Signal that taskOne has completed
+    taskOneExecuted = true; //flag set to true once printing is finished
+    cv.notify_one();  // Signal that taskOne is completed
 }
 
 /*! displays a message second */
 void taskTwo() {
     std::unique_lock<std::mutex> lock(mtx);
-    cv.wait(lock, [] { return taskOneExecuted; });  // Wait for taskOne to complete
+    cv.wait(lock, [] { return taskOneExecuted; });  // Waiting for signal from TaskOne
     std::cout << "This ";
     std::cout << "will ";
     std::this_thread::sleep_for(std::chrono::seconds(5));
