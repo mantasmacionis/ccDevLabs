@@ -9,7 +9,7 @@
 
 
 
-void Semaphore::Wait()
+void Semaphore::wait()
 {
       std::unique_lock< std::mutex > lock(m_mutex);
       m_condition.wait(lock,[&]()->bool{ return m_uiCount>0; });
@@ -17,7 +17,7 @@ void Semaphore::Wait()
 }
 
 template< typename R,typename P >
-bool Semaphore::Wait(const std::chrono::duration<R,P>& crRelTime)
+bool Semaphore::wait(const std::chrono::duration<R,P>& crRelTime)
 {
       std::unique_lock< std::mutex > lock(m_mutex);
       if (!m_condition.wait_for(lock,crRelTime,[&]()->bool{ return m_uiCount>0; })){
@@ -27,7 +27,7 @@ bool Semaphore::Wait(const std::chrono::duration<R,P>& crRelTime)
       return true;
 }
 
-void Semaphore::Signal()
+void Semaphore::signal()
 {
       std::unique_lock< std::mutex > lock(m_mutex);
       ++m_uiCount;
