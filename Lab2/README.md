@@ -21,9 +21,9 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 ### TO DO
 
 ### List of files and what they contain
-- rendezvous.cpp (Main method
+- rendezvous.cpp (Main method)
 - Semaphore.cpp (Semaphore methods)
 - Semaphore.h (semaphore headers)
-- Makefile (compilation
+- Makefile (compilation)
 
 ### Other relevant information
