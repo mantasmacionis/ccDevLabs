@@ -3,7 +3,9 @@
 
 ## Description
 
-Lab 1 is an introductory laboratory exercise, focusing on the utilization of semaphores. It includes practical demonstrations of a basic rendezvous and mutual exclusion. Additionally, the lab offers an introduction to the usage of Makefiles and Doxygen for documentation purposes.
+Lab 1 , The main purpose of lab1 is to demonstrate the functionality of semaphores by showing how one task must wait until the task before it is finished.
+Once the initial task is confirmed to have finished, the second task begins
+This is lab is also an introduction to the usage of makefiles and doxygen for documentation purposes.
 
 ### License
 This project is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. - visit the http://creativecommons.org/licenses/by-nc-sa/4.0/ page for details.
@@ -23,7 +25,6 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 - Comment on makefile 
 - comment on cpp files
 - Add info on what each file contains to readme
-- use doxygen
 ### List of files and what they contain
 - Semaphore.cpp 
 - Semaphore.h
