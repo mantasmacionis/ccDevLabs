@@ -14,7 +14,7 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 - https://github.com/mantasmacionis/ccDevLabs/
 ### How to install
 - 1 start terminal, cd to the lab3 folder
-- 2 type: g++ -o barrier main.cpp Barrier Semaphore.cpp -std=c++11 -pthread
+- 2 type: make
 - 3 run the exe file using ./barrier
 
 ### Platform
