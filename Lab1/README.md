@@ -11,7 +11,7 @@ This is lab is also an introduction to the usage of makefiles and doxygen for do
 This project is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. - visit the http://creativecommons.org/licenses/by-nc-sa/4.0/ page for details.
 
 ### Authors
-- Mantas Macionis /C00242178@setu.ie
+- Mantas Macionis / C00242178@setu.ie
 ### GIT
 - https://github.com/mantasmacionis/ccDevLabs/
 ### How to install
