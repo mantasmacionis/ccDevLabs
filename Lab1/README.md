@@ -4,7 +4,7 @@
 ## Description
 
 Lab 1 , The main purpose of lab1 is to demonstrate the functionality of semaphores by showing how one task must wait until the task before it is finished.
-Once the initial task is confirmed to have finished, the second task begins
+Once the initial task is confirmed to have finished, the second task begins. this lab also contains a deomstration of a rendezvous, which splits the output.
 This is lab is also an introduction to the usage of makefiles and doxygen for documentation purposes.
 
 ### License
@@ -24,11 +24,11 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 ### TO DO
 
 ### List of files and what they contain
-- Semaphore.cpp 
-- Semaphore.h
-- HelloThreads.cpp
-- MutualEx.cpp
-- Makefile1
+- Semaphore.cpp (semaphore methods)
+- Semaphore.h (headers for semaphore)
+- HelloThreads.cpp (main method and semaphore function)
+- MutualEx.cpp (splits the output into 2 for rendezvous demonstration)
+- Makefile1 (compilation)
 
 ### Other relevant information
 
