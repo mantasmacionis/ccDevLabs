@@ -1,61 +1,47 @@
 #include "Barrier.h"
 
-/*! \class Barrier
-    \brief An Implementation of a barrier Using Semaphores 
-
-   Uses C++11 features such as mutex and condition variables to implement a barrier using Semaphores with N number threads
-
-*/
-/*! Barrier constructor*/
-Barrier::Barrier(){
-
-  this->count = 0;
-  threadNum = 0;
-  condition = false;
-  mutex=std::make_shared<Semaphore>(1);
-  //std::shared_ptr<Semaphore> mutex(new Semaphore(1));
-  barrier1=std::make_shared<Semaphore>(0);
-  //std::shared_ptr<Semaphore> barrier1(new Semaphore(0));
-  // std::shared_ptr<Semaphore> barrier2(new Semaphore(1));
-
-}
-/*! Barrier with parameter constructor*/
-Barrier::Barrier(int count){
-
-  this->count = count;
-  threadNum = 0;
-  condition = false;
-  std::shared_ptr<Semaphore> mutex(new Semaphore(1));
-  std::shared_ptr<Semaphore> barrier1(new Semaphore(0));
-  // std::shared_ptr<Semaphore> barrier2(new Semaphore(1));
-}
-/*! Barrier deconstructor*/
-Barrier::~Barrier(){
-
-}
-
-/*! sets count value*/
-void Barrier::setCount(int x){
-
-  this->count = x;
-}
-/*! returns count value*/
-int Barrier::getCount(){
-
-  return this->count;
-}
-
-/*! waits for all the threads before starting second half of code*/ 
-void Barrier::waitForAll(){
-
-  mutex->Wait();
-  threadNum++;
-
-  if(threadNum == count){
-    barrier1->Signal();
+// Constructor for the Barrier class
+Barrier::Barrier(int NumThreads) {
+    count = NumThreads;
     threadNum = 0;
-  }
-  mutex->Signal();
-  barrier1->Wait();
-  barrier1->Signal();
+    theMutex = std::make_shared<Semaphore>(1);  // Create a Semaphore with an initial count of 1
+    innerLock = std::make_shared<Semaphore>(0);  //0
+    outerLock = std::make_shared<Semaphore>(1); //1
+}
+
+// Destructor for the Barrier class
+Barrier::~Barrier() {
+    // Destructor definition, if necessary
+}
+
+// Get the current count value of the Barrier
+int Barrier::getCount() {
+    return this->count;
+}
+
+// Wait for all threads to reach the barrier before proceeding
+void Barrier::waitForAll() {
+    theMutex->Wait();  // Acquire theMutex to prevent concurrent access to shared variables
+    threadNum++;  // Increment the threadNum to count the number of threads that have reached the barrier
+
+    if (threadNum == count) {  // If all threads have reached the barrier
+        outerLock->Wait();  // Acquire outerLock to synchronize the release of threads
+        innerLock->Signal();  // Signal innerLock to allow all threads to proceed
+    }
+
+    theMutex->Signal(); 
+    innerLock->Wait();  
+    innerLock->Signal(); 
+
+    theMutex->Wait();  
+    threadNum--;  
+
+    if (threadNum == 0) {  
+        innerLock->Wait();  
+        outerLock->Signal();  
+    }
+
+    theMutex->Signal();  
+    outerLock->Wait(); 
+    outerLock->Signal();  
 }
