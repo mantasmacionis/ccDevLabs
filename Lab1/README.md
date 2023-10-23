@@ -12,7 +12,7 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 
 ### Authors
 - Mantas Macionis /C00242178@setu.ie
-###GIT
+### GIT
 - https://github.com/mantasmacionis/ccDevLabs/
 ### How to install
 - 1 start terminal, cd to the lab1 folder
