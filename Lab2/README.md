@@ -12,7 +12,7 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 ### GIT
 - https://github.com/mantasmacionis/ccDevLabs/
 ### How to install
-- 1 start terminal, cd to the lab1 folder
+- 1 start terminal, cd to the lab2 folder
 - 2 type g++ -o lab2exe rendezvous.cpp
 - 3 run the exe file using ./lab2exe 
 
