@@ -1,49 +1,37 @@
-/* SafeBuffer.h --- 
- * 
- * Filename: SafeBuffer.h
- * Description: 
- * Author: Joseph
- * Maintainer: 
- * Created: Tue Jan  8 12:30:23 2019 (+0000)
- * Version: 
- * Package-Requires: ()
- * Last-Updated: Tue Jan  8 12:30:25 2019 (+0000)
- *           By: Joseph
- *     Update #: 1
- * URL: 
- * Doc URL: 
- * Keywords: 
- * Compatibility: 
- * 
- */
+#ifndef SAFE_BUFFER_H
+#define SAFE_BUFFER_H
 
-/* Commentary: 
- * 
- * 
- * 
- */
+#include <queue>
+#include <mutex>
+#include <condition_variable>
 
-/* Change Log:
- * 
- * 
- */
+template <typename T>
+class SafeBuffer {
+public:
+    SafeBuffer(int size) : bufferSize(size) {}
 
-/* This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at
- * your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
- */
+    void put(T item) {
+        std::unique_lock<std::mutex> lock(mutex);
+        bufferFull.wait(lock, [this] { return buffer.size() < bufferSize; });
+        buffer.push(item);
+        bufferEmpty.notify_all();
+    }
 
-/* Code: */
+    T get() {
+        std::unique_lock<std::mutex> lock(mutex);
+        bufferEmpty.wait(lock, [this] { return !buffer.empty(); });
+        T item = buffer.front();
+        buffer.pop();
+        bufferFull.notify_all();
+        return item;
+    }
 
+private:
+    int bufferSize;
+    std::queue<T> buffer;
+    std::mutex mutex;
+    std::condition_variable bufferFull;
+    std::condition_variable bufferEmpty;
+};
 
-
-/* SafeBuffer.h ends here */
+#endif
