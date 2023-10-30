@@ -1,3 +1,11 @@
+/**
+ * @file Semaphore.cpp
+ * @brief semaphore implementation.
+ * @author Mantas Macionis
+ * @date october-2023
+ * @see https://github.com/mantasmacionis/ccDevLabs/
+ * @license Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+ */
 #include "Semaphore.h"
 /*! \class Semaphore
     \brief A Semaphore Implementation
