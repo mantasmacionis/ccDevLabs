@@ -1,6 +1,19 @@
+/**
+ * @file Barrier.cpp
+ * @brief Barrier implementation
+ * @author Mantas Macionis
+ * @date october-2023
+ * @see https://github.com/mantasmacionis/ccDevLabs/
+ * @license Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+ */
 #include "Barrier.h"
 
-// Constructor for the Barrier class
+/**
+ * @brief Constructor for the Barrier class.
+ *
+ *
+ * @param NumThreads The number of threads for which the barrier will synchronize.
+ */
 Barrier::Barrier(int NumThreads) {
     count = NumThreads;
     threadNum = 0;
@@ -14,18 +27,26 @@ Barrier::~Barrier() {
     // Destructor definition, if necessary
 }
 
-// Get the current count value of the Barrier
+/**
+ * @brief Get the current count of threads at the barrier.
+ *
+ *
+ * @return The current count of threads at the barrier.
+ */
 int Barrier::getCount() {
     return this->count;
 }
 
-// Wait for all threads to reach the barrier before proceeding
+/**
+ * @brief Wait for all threads to reach a synchronization barrier.
+ *
+ */
 void Barrier::waitForAll() {
-    theMutex->Wait();  // Acquire theMutex to prevent concurrent access to shared variables
+    theMutex->Wait();  
     threadNum++;  // Increment the threadNum to count the number of threads that have reached the barrier
 
     if (threadNum == count) {  // If all threads have reached the barrier
-        outerLock->Wait();  // Acquire outerLock to synchronize the release of threads
+        outerLock->Wait();  
         innerLock->Signal();  // Signal innerLock to allow all threads to proceed
     }
 
