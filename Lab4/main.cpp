@@ -12,7 +12,7 @@ const int size = 20;
 Semaphore bufferFull(0); // Semaphore to track buffer full
 Semaphore bufferEmpty(size); // Semaphore to track empty slots
 
-void producer(std::shared_ptr<SafeBuffer<std::shared_ptr<Event>> theBuffer, int numLoops) {
+void producer(std::shared_ptr<SafeBuffer<std::shared_ptr<Event>>> theBuffer, int numLoops) {
     for (int i = 0; i < numLoops; ++i) {
         std::shared_ptr<Event> e = std::make_shared<Event>(i);
 
@@ -26,7 +26,7 @@ void producer(std::shared_ptr<SafeBuffer<std::shared_ptr<Event>> theBuffer, int 
     }
 }
 
-void consumer(std::shared_ptr<SafeBuffer<std::shared_ptr<Event>> theBuffer, int numLoops) {
+void consumer(std::shared_ptr<SafeBuffer<std::shared_ptr<Event>>>theBuffer, int numLoops) {
     for (int i = 0; i < numLoops; ++i) {
         // Wait for a filled slot in the buffer
         bufferFull.Wait();
@@ -41,15 +41,18 @@ void consumer(std::shared_ptr<SafeBuffer<std::shared_ptr<Event>> theBuffer, int 
 
 int main(void) {
     std::vector<std::thread> vt(num_threads);
-    std::shared_ptr<SafeBuffer<std::shared_ptr<Event>> aBuffer(new SafeBuffer<std::shared_ptr<Event>>(size));
+    std::shared_ptr<SafeBuffer<std::shared_ptr<Event>>>aBuffer(new SafeBuffer<std::shared_ptr<Event>>(size));
 
     for (std::thread& t : vt) {
         t = std::thread(producer, aBuffer, 10);
+        std::cout << "Producer thread created." << std::endl;
     }
 
     for (auto& v : vt) {
         v.join();
+        std::cout << "A thread has finished." << std::endl;
     }
-
+    std::cout << "All threads have finished." << std::endl;
+    
     return 0;
 }
