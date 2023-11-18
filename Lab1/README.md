@@ -30,6 +30,7 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 - MutualEx.cpp (splits the output into 2 for rendezvous demonstration)
 - Makefile1 (compilation)
 - lab1exe (executable file)
+- DoxyfileLab1 (Doxygen comments for the lab)
 
 ### Other relevant information
 
