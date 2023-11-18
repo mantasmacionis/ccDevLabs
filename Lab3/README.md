@@ -27,5 +27,6 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 - Barrier.h (header file for barrier)
 - Semaphore.cpp (Semaphore used to open and close threads)
 - Semaphore.h (header file to hold the count)
+- barrier (executable file)
 
 ### Other relevant information
