@@ -28,5 +28,6 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 - SafeBuffer.h (buffer for storing T elements)
 - Event.h (Event identifier file)
 - producerconsumer (executable file)
+- DoxyfileLab4 (doxygen comments for the lab)
 
 ### Other relevant information
