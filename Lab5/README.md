@@ -15,7 +15,7 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 ### How to install
 - 1 start terminal, cd to the lab5 folder
 - 2 type: make
-- 3 run the exe file using ./diningphilosopher
+- 3 run the exe file using ./diningphilosophers
 
 ### Platform
 - VSCodium used
@@ -25,6 +25,6 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 - main.cpp (main method with loops to add events to buffer)
 - Semaphore.cpp (Semaphores to control invalid input)
 - Semaphore.h (header file for semaphores)
-- diningphilosopher (executable file)
+- diningphilosophers (executable file)
 
 ### Other relevant information
