@@ -26,5 +26,6 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 - Semaphore.cpp (Semaphores to control invalid input)
 - Semaphore.h (header file for semaphores)
 - diningphilosophers (executable file)
+- DoxyfileLab5 (doxygen comments for the lab)
 
 ### Other relevant information
