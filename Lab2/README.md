@@ -26,5 +26,6 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 - Semaphore.h (semaphore headers)
 - Makefile (compilation)
 - rendezvous (executable file)
+- DoxyfileLab2 (Doxygen comments for the lab)
 
 ### Other relevant information
