@@ -25,5 +25,6 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 - Semaphore.cpp (Semaphore methods)
 - Semaphore.h (semaphore headers)
 - Makefile (compilation)
+- rendezvous (executable file)
 
 ### Other relevant information
