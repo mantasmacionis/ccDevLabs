@@ -1,97 +1,108 @@
-/* main.c --- 
- * 
- * Filename: main.c
- * Description: 
- * Author: Joseph
- * Maintainer: 
- * Created: Wed Oct 11 09:28:12 2023 (+0100)
- * Last-Updated: Wed Oct 11 10:01:39 2023 (+0100)
- *           By: Joseph
- *     Update #: 13
- * 
+/**
+ * @file main.cpp
+ * @brief main method.
+ * @author Mantas Macionis
+ * @date november-2023
+ * @see https://github.com/mantasmacionis/ccDevLabs/
+ * @license Creative Commons Attribution-NonCommercial-ShareAlike 4.0
  */
-
-/* Commentary: 
- * 
- * 
- * 
- */
-
-/* This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at
- * your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/* Code: */
-
 #include "Semaphore.h"
 #include <iostream>
 #include <thread>
 #include <vector>
-#include <stdlib.h>     /* srand, rand */
-#include <time.h>       /* time */
-#include<unistd.h>
+#include <mutex>
+#include <condition_variable>
+#include <random>
+#include <chrono>
+
 
 const int COUNT = 5;
-const int THINKTIME=3;
-const int EATTIME=5;
+const int THINKTIME = 3;
+const int EATTIME = 5;
 std::vector<Semaphore> forks(COUNT);
 
-
-void think(int myID){
-  int seconds=rand() % THINKTIME + 1;
-  std::cout << myID << " is thinking! "<<std::endl;
-  sleep(seconds);
+/**
+ * @brief thinking process for a philosopher with given ID.
+ *
+ * @param myID The identifier of the philosopher.
+ */
+void think(int myID) {
+    // Generate a random thinking time between 1 and THINKTIME seconds
+    int seconds = rand() % THINKTIME + 1;
+    std::cout << myID << " is thinking! " << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(seconds));
 }
 
-void get_forks(int philID){
-  forks[philID].Wait();
-  forks[(philID+1)%COUNT].Wait();
+/**
+ * @brief Attempts to acquire forks for a philosopher with given ID.
+ *
+ * @param philID The identifier of the philosopher.
+ */
+void get_forks(int philID) {
+    // Wait until the left fork is available
+    forks[philID].Wait();
+    // Wait until the right fork is available (circular allocation)
+    forks[(philID + 1) % COUNT].Wait();
 }
 
-void put_forks(int philID){
-  forks[philID].Signal();
-  forks[(philID+1)%COUNT].Signal();  
+/**
+ * @brief Releases forks after a philosopher with the given ID has finished eating.
+ *
+ * @param philID The identifier of the philosopher.
+ */
+void put_forks(int philID) {
+    // Signal that the left fork is available
+    forks[philID].Signal();
+    // Signal that the right fork is available
+    forks[(philID + 1) % COUNT].Signal();
 }
 
-void eat(int myID){
-  int seconds=rand() % EATTIME + 1;
-    std::cout << myID << " is chomping! "<<std::endl;
-  sleep(seconds);  
+/**
+ * @brief eating process for a philosopher with given ID.
+ *
+ * @param myID The identifier of the philosopher.
+ */
+void eat(int myID) {
+     // Generate a random eating time between 1 and EATTIME seconds
+    int seconds = rand() % EATTIME + 1;
+    std::cout << myID << " is chomping! " << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(seconds));
 }
 
-void philosopher(int id/* other params here*/){
-  while(true){
-    think(id);
-    get_forks(id);
-    eat(id);
-    put_forks(id);
-  }//while  
-}//philosopher
-
-
-
-int main(void){
-  srand (time(NULL)); // initialize random seed: 
-  std::vector<std::thread> vt(COUNT);
-  int id=0;
-  for(std::thread& t: vt){
-    t=std::thread(philosopher,id++/*,params*/);
-  }
-  /**< Join the philosopher threads with the main thread */
-  for (auto& v :vt){
-      v.join();
-  }
-  return 0;
+/**
+ * @brief Represents the philosopher's life cycle.
+ *
+ * @param id The identifier of the philosopher.
+ */
+void philosopher(int id) {
+    while (true) {
+          // thinking process
+        think(id);
+        // Attempt to acquire forks for eating
+        get_forks(id);
+        eat(id);
+         // Release acquired forks after eating
+        put_forks(id);
+    }
 }
 
-/* main.c ends here */
+/**
+ * @brief The main function for the dining philosophers.
+ *
+ * @return 0 for exit of the program.
+ */
+int main(void) {
+    srand(time(NULL)); // initialize random seed:
+     // Create a vector of philosopher threads
+    std::vector<std::thread> vt(COUNT);
+    int id = 0;
+     // Create philosopher threads and assign them to the vector
+    for (std::thread& t : vt) {
+        t = std::thread(philosopher, id++);
+    }
+    /**< Join the philosopher threads with the main thread */
+    for (auto& v : vt) {
+        v.join();
+    }
+    return 0;
+}
