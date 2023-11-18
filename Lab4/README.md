@@ -28,6 +28,5 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 - SafeBuffer.h (buffer for storing T elements)
 - Event.h (Event identifier file)
 - producerconsumer (executable file)
-- producerconsumer (executable file)
 
 ### Other relevant information
