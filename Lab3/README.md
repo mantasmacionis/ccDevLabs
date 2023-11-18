@@ -28,5 +28,6 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 - Semaphore.cpp (Semaphore used to open and close threads)
 - Semaphore.h (header file to hold the count)
 - barrier (executable file)
+- DoxyfileLab3 (Doxygen comments for the lab)
 
 ### Other relevant information
