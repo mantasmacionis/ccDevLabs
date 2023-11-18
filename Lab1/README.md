@@ -29,6 +29,7 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 - HelloThreads.cpp (main method and semaphore function)
 - MutualEx.cpp (splits the output into 2 for rendezvous demonstration)
 - Makefile1 (compilation)
+- lab1exe (executable file)
 
 ### Other relevant information
 
