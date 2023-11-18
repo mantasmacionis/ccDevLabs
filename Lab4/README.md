@@ -3,8 +3,7 @@
 ## Description
 
 The purpose of lab4 is to demonstrate the Producer-Consumer problem. 
-Done by producing an event, adding it to a buffer and consuming an event, adding to a buffer. 
-Semaphores are utilised to prevent invalid input
+This problem should demonstrate the division of labor amongst threads, Producers create items and add them to a data structure, consumers remove the items and process them. 
 
 ### License
 This project is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. - visit the http://creativecommons.org/licenses/by-nc-sa/4.0/ page for details.
@@ -26,7 +25,8 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 - main.cpp (main method with loops to add events to buffer)
 - Semaphore.cpp (Semaphores to control invalid input)
 - Semaphore.h (header file for semaphores)
-- SafeBuffer.h
-- Event.h
+- SafeBuffer.h (buffer for storing T elements)
+- Event.h (Event identifier file)
+- producerconsumer (executable file)
 
 ### Other relevant information
