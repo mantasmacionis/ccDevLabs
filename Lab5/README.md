@@ -25,5 +25,6 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 - main.cpp (main method with loops to add events to buffer)
 - Semaphore.cpp (Semaphores to control invalid input)
 - Semaphore.h (header file for semaphores)
+- diningphilosopher (executable file)
 
 ### Other relevant information
