@@ -3,7 +3,7 @@
 ## Description
 
 The purpose of lab5 is to demonstrate the DiningPhilosophers problem. 
-The dining philosophers is a synchronization issue and the goal is to avoid deadlock occurring.In this example philosophers alternate between eating and thinking. A philosopher needs a right and left fork to eat, to achieve this issue they must alternate between holding and putting the forks down.  
+The dining philosophers is a synchronization issue and the goal is to avoid deadlock occurring.In this example philosophers alternate between eating and thinking. A philosopher needs a right and left fork to eat, the solution is to have philosophers alternate between holding and putting the forks down.  
 
 ### License
 This project is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. - visit the http://creativecommons.org/licenses/by-nc-sa/4.0/ page for details.
