@@ -1,49 +1,11 @@
-// quicksort.cpp --- 
-// 
-// Filename: quicksort.cpp
-// Description: 
-// Author: Joseph Kehoe
-// Maintainer: 
-// Created: Sat Feb  9 16:43:33 2019 (+0000)
-// Version: 
-// Package-Requires: ()
-// Last-Updated: Tue Feb 12 16:48:22 2019 (+0000)
-//           By: Joseph
-//     Update #: 103
-// URL: 
-// Doc URL: 
-// Keywords: 
-// Compatibility: 
-// 
-// 
-
-// Commentary: 
-// 
-// 
-// 
-// 
-
-// Change Log:
-// 
-// 
-// 
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at
-// your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-// General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
-//
-// 
-
-// Code:
+/**
+ * @file quicksort.cpp
+ * @brief parallelized quicksort algorithm.
+ * @author Mantas Macionis
+ * @date november-2023
+ * @see https://github.com/mantasmacionis/ccDevLabs/
+ * @license Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+ */
 
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */
@@ -58,7 +20,19 @@ using namespace std ;
 
 const int LENGTH=2000;
 
-//template <typename T>
+/**
+ * @brief Partition a vector based on the QuickSort algorithm.
+ *
+ * This function partitions a vector 'myArray' between indices 'low' and 'high'
+ * using the QuickSort algorithm. It chooses the pivot element as the last element
+ * (index 'high') and rearranges the elements such that elements smaller than the
+ * pivot are on the left, and elements greater than the pivot are on the right.
+ *
+ * @param myArray The vector to be partitioned.
+ * @param low The lower index of the partition.
+ * @param high The higher index of the partition.
+ * @return The index of the pivot after partitioning.
+ */
 int partition (vector<int>& myArray , int low , int high ){
   int pivot=myArray[high];
   int k=high;
@@ -77,7 +51,18 @@ int partition (vector<int>& myArray , int low , int high ){
   return i-1;
 }
   
-//template<typename T>
+/**
+ * @brief Perform parallelized QuickSort on a vector within a specified range.
+ *
+ * The sorting is performed within the specified
+ * range defined by the indices 'low' and 'high'. Parallelization is achieved using
+ * OpenMP tasks, and a recursive approach is taken to sort subarrays.
+ *
+ * @param myArray The vector to be sorted.
+ * @param low The lower index of the range to be sorted.
+ * @param high The higher index of the range to be sorted.
+ * @return Always returns 1.
+ */
 int quicksort(vector<int>& myArray , int low , int high ){
   if (low<high){
     int pivot=partition(myArray,low,high);
@@ -92,16 +77,26 @@ int quicksort(vector<int>& myArray , int low , int high ){
 }//quicksort
 
 
-
+/**
+ * @brief main method of the program to demonstrate parallelized QuickSort on a vector.
+ *
+ * This function initializes a vector 'data' with random values, prints the initial
+ * unsorted vector, performs parallelized QuickSort on it, and then prints the sorted vector.
+ *
+ * @return 0 on successful execution.
+ */
 int main(void){
-  srand (time(NULL));
+  srand (time(NULL)); /**< Seed the random number generator */
+    // Generate a vector 'data' with random values
   vector<int> data(LENGTH);
   for(auto& value:data){
     value=rand()%1000;
   }
+ 
   for(auto& value:data){
     cout<<value<<" ";
   }
+   // Print the initial unsorted vector
   cout << endl<<"*******************************"<<endl;
   quicksort(data,0,data.size()-1);
   for(auto& value:data){
