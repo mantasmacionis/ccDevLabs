@@ -1,50 +1,11 @@
-// stencil.cpp --- 
-// 
-// Filename: stencil.cpp
-// Description: 
-// Author: Joseph
-// Maintainer: 
-// Created: Mon Feb  4 10:10:27 2019 (+0000)
-// Version: 
-// Package-Requires: ()
-// Last-Updated: Fri Feb  8 10:14:29 2019 (+0000)
-//           By: Joseph Kehoe
-//     Update #: 40
-// URL: 
-// Doc URL: 
-// Keywords: 
-// Compatibility: 
-// 
-// 
-
-// Commentary: 
-// 
-// 
-// 
-// 
-
-// Change Log:
-// 
-// 
-// 
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at
-// your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-// General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
-// 
-// 
-
-// Code:
-
+/**
+ * @file stencil.cpp
+ * @brief stencil operation.
+ * @author Mantas Macionis
+ * @date november-2023
+ * @see https://github.com/mantasmacionis/ccDevLabs/
+ * @license Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+ */
 
 
 #include <iostream>
@@ -61,6 +22,18 @@ using namespace std ;
 const int DIM=1000;
 const int SIZE=4;
 
+/**
+ * @brief Calculate the neighboring elements of a specified index in a vector.
+ *
+ * This function extracts neighboring elements of the specified index 'index' from
+ * the input vector 'in' and stores them in the output vector 'out'. The number of
+ * neighboring elements is determined by the size of the 'out' vector.
+ *
+ * @param in The input vector from which neighbors are extracted.
+ * @param index The index for which neighbors are calculated.
+ * @param out The output vector to store the neighboring elements.
+ * @return Always returns 1.
+ */
 int calcNeighbours(vector<float> const  &in, int index, vector<float>& out){
   int amount=out.size();
   for(int i=0;i<out.size();++i){//put neighbours of in[i] into out vector
@@ -75,6 +48,14 @@ int calcNeighbours(vector<float> const  &in, int index, vector<float>& out){
   return 1;
 }
 
+/**
+ * @brief Apply a stencil operation on each element of an input vector.
+ *
+ * @param in The input vector on which the stencil operation is applied.
+ * @param out The output vector to store the results of the stencil operation.
+ * @param f The function object representing the stencil operation.
+ * @param size The size of the neighborhood used for the stencil operation.
+ */
 void stencil(vector<float> const &in, vector<float> &out,
 	     function <float(vector<float>) > f,int size){
 #pragma openmp parallel for
@@ -87,7 +68,15 @@ void stencil(vector<float> const &in, vector<float> &out,
 
 
 
-
+/**
+ * @brief Calculate the average of values in a vector.
+ *
+ * This function calculates the average of the values in the input vector
+ * 'currentValues' and returns the result.
+ *
+ * @param currentValues The vector containing values for which the average is calculated.
+ * @return The average value of the elements in the input vector.
+ */
 float getNewValue(vector<float> currentValues){
   float average=0.0;
   float total=0.0;
@@ -97,23 +86,35 @@ float getNewValue(vector<float> currentValues){
   return total/currentValues.size();
 }
 
+/**
+ * @brief Entry point of the program to demonstrate a stencil operation.
+ *
+ * This function initializes two vectors 'first' and 'second', performs a stencil
+ * operation on 'first' using the function 'getNewValue', and prints the sum of
+ * values in both vectors before and after the stencil operation.
+ *
+ * @return 0 on successful execution.
+ */
 int main(void){
   vector<float> first(DIM), second(DIM);
   //initilise vectors
   srand (time(NULL));
    
+   // Initialize 'first' vector with random values between 0 and 1
   for(auto& value: first) {
     value=(float)rand() / ((float)(RAND_MAX)+(float)(1));
   }
+  // Initialize 'second' vector with zeros
   for(auto it=second.begin(); it<second.end();++it){
     *it=0.0f;
   }
-  //
+  // Calculate and print the sum of values in the 'first' vector
   float sum=0.0f;
   for(auto const&value: first){
     sum+=value;
   }
   cout << sum <<endl;
+  // Perform stencil operation on 'first' and store results in 'second'
   stencil(first,second,getNewValue,SIZE);
   sum=0.0f;
   for(auto const&value: second){
