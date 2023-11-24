@@ -1,49 +1,11 @@
-// reduction.cpp --- 
-// 
-// Filename: quicksort.cpp
-// Description: 
-// Author: Joseph Kehoe
-// Maintainer: 
-// Created: Sat Feb 19 13:23:33 2019 (+0000)
-// Version: 
-// Package-Requires: ()
-// Last-Updated: Sun Oct 22 20:51:32 2023 (+0100)
-//           By: Joseph
-//     Update #: 106
-// URL: 
-// Doc URL: 
-// Keywords: 
-// Compatibility: 
-// 
-// 
-
-// Commentary: 
-// 
-// 
-// 
-// 
-
-// Change Log:
-// 
-// 
-// 
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at
-// your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-// General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
-//
-// 
-
-// Code:
+/**
+ * @file reduction.cpp
+ * @brief getting the average of elements in a vector.
+ * @author Mantas Macionis
+ * @date november-2023
+ * @see https://github.com/mantasmacionis/ccDevLabs/
+ * @license Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+ */
 
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */
@@ -61,6 +23,14 @@ int NumThreads=1;
 
 
 ///! Find out how many threads are running!
+/**
+ * @brief Get the number of threads currently running in parallel.
+ *
+ * This function uses OpenMP to determine the number of threads currently active
+ * within the parallel region.
+ *
+ * @return The number of threads currently running in the parallel region.
+ */
 int get_num_threads(void) {
     int num_threads = 1;
     //must ask in parallel region otherwise 1 is returned
@@ -72,6 +42,15 @@ int get_num_threads(void) {
     return num_threads;
 }
 
+/**
+ * @brief Calculate the sum of elements in a vector using a serial method.
+ *
+ * This function iterates through each element in the input vector 'data' and
+ * calculates the sum using a serial approach.
+ *
+ * @param data The vector containing integer values for which the sum is calculated.
+ * @return The sum of all elements in the vector.
+ */
 float getSerialSum(vector<int> data){
   float sum=0.0;
   for(auto& value:data){
@@ -80,6 +59,12 @@ float getSerialSum(vector<int> data){
   return sum;
 }
 
+/**
+ * @brief Calculate the sum of elements in a vector using parallelization.
+ *
+ * @param data The vector containing integer values for which the sum is calculated.
+ * @return The sum of all elements in the vector, computed in parallel.
+ */
 float getParallelSum(vector<int> data){
   float sum=0.0;
 #pragma omp parallel for reduction(+:sum)
@@ -90,6 +75,15 @@ float getParallelSum(vector<int> data){
 }
 
 
+/**
+ * @brief Calculate the sum of elements in a vector using tiled parallelization.
+ *
+ * using OpenMP. The workload is distributed among threads in
+ * the map step, and the partial results are aggregated in the reduce step.
+ *
+ * @param data The vector containing integer values for which the sum is calculated.
+ * @return The sum of all elements in the vector, computed using tiled parallelization.
+ */
 float getTiledParallelsum(vector<int> data){
   float result =0.0;
   NumThreads=get_num_threads();
@@ -111,7 +105,15 @@ float getTiledParallelsum(vector<int> data){
 }
 
 
-
+/**
+ * @brief Entry point of the program for calculating averages using different methods.
+ *
+ * This function initializes variables, generates a vector with random values,
+ * and calculates the average using serial, parallel, and tiled parallel methods.
+ * The results are printed to the console.
+ *
+ * @return 0 on successful execution.
+ */
 int main(void){
   float sum=0.0;
   int average=0;
@@ -122,13 +124,16 @@ int main(void){
     value=10;//rand()%1000;
   }
 
+ // Calculate and print the average using serial computation
   sum=getSerialSum(data);
   average=sum/data.size();
   cout <<"Serial Average is: "<<average<<endl;
+   // Calculate and print the average using parallel computation
   sum=getParallelSum(data);
   average=sum/data.size();
   cout <<"Parallel Average is: "<<average<<endl;
   cout << endl;
+  // Calculate and print the average using tiled parallel computation
   sum=getTiledParallelsum(data);
   average=sum/data.size();
   cout <<"Parallel Average is: "<<average<<endl;
