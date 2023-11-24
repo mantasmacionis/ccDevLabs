@@ -1,50 +1,11 @@
-// mandelbroit.cpp --- m
-// 
-// Filename: mandelbroit.cpp
-// Description: 
-// Author: Joseph
-// Maintainer: 
-// Created: Mon Feb  4 09:40:41 2019 (+0000)
-// Version: 
-// Package-Requires: ()
-// Last-Updated: Mon Feb  4 10:08:24 2019 (+0000)
-//           By: Joseph
-//     Update #: 18
-// URL: 
-// Doc URL: 
-// Keywords: 
-// Compatibility: 
-// 
-// 
-
-// Commentary: 
-// 
-// 
-// 
-// 
-
-// Change Log:
-// 
-// 
-// 
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at
-// your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-// General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
-// 
-// 
-
-// Code:
-
+/**
+ * @file mandelbroit.cpp
+ * @brief iterative mandelbrot algorithm.
+ * @author Mantas Macionis
+ * @date november-2023
+ * @see https://github.com/mantasmacionis/ccDevLabs/
+ * @license Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+ */
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */
 #include <complex>      /* complex number data type */
@@ -57,6 +18,16 @@ const int ROW=1000;
 const int COL=1000;
 const int DEPTH=10;
 
+/**
+ * @brief Calculate the Mandelbrot value for a given complex number.
+ *
+ * Applying the Mandelbrot iteration for the specified depth to determine
+ * the number of iterations before the escape condition is met.
+ *
+ * @param c The complex number for which the Mandelbrot value is calculated.
+ * @param depth The maximum number of iterations to perform.
+ * @return The number of iterations before the escape condition is met.
+ */
 int calc(complex<int> c, int depth){
     int count=0;
     complex<int> z=0;
@@ -70,7 +41,12 @@ int calc(complex<int> c, int depth){
     return count;
 }
 
-
+/**
+ * @brief Generate the Mandelbrot set and store the results in a 2D array.
+ *
+ * @param p The 2D array to store Mandelbrot values.
+ * @param depth The maximum number of iterations for Mandelbrot calculations.
+ */
 void mandel( int p[ROW][COL], int depth){
   #pragma omp parallel for collapse(2)	  
   for(int i=0;i<ROW;++i){
@@ -80,6 +56,15 @@ void mandel( int p[ROW][COL], int depth){
     }
 }
 
+/**
+ * @brief Entry point of the program to generate the Mandelbrot set.
+ *
+ * Initialise necessary variables, generate the Mandelbrot
+ * set using the 'mandel' function, measure the time taken, and output the
+ * elapsed time to the console.
+ *
+ * @return 0 for successful execution.
+ */
 int main(void){
 
   
@@ -93,7 +78,3 @@ int main(void){
   double timeSec = (end - begin) / static_cast<double>( CLOCKS_PER_SEC );
   std::cout << timeSec << std::endl;
 }
-
-
-// 
-// mandelbroit.cpp ends here

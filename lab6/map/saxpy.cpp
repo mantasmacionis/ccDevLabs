@@ -1,54 +1,24 @@
-// saxpy.cpp --- 
-// 
-// Filename: saxpy.cpp
-// Description: 
-// Author: Joseph Kehoe
-// Maintainer: 
-// Created: Fri Feb  1 10:12:18 2019 (+0000)
-// Version: 
-// Package-Requires: ()
-// Last-Updated: Mon Feb  4 09:50:59 2019 (+0000)
-//           By: Joseph
-//     Update #: 25
-// URL: 
-// Doc URL: 
-// Keywords: 
-// Compatibility: 
-// 
-// 
-
-// Commentary: 
-// 
-// 
-// 
-// 
-
-// Change Log:
-// 
-// 
-// 
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at
-// your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-// General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
-// 
-// 
-
-// Code:
+/**
+ * @file saxpy.cpp
+ * @brief scalar multiplication and vector addition.
+ * @author Mantas Macionis
+ * @date november-2023
+ * @see https://github.com/mantasmacionis/ccDevLabs/
+ * @license Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+ */
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 #include <limits>
 
+/**
+ * @brief Perform SAXPY operation in parallel.
+ *
+ * @param n The size of the vectors.
+ * @param a The scalar multiplier.
+ * @param y The output vector, modified in place.
+ * @param x The input vector.
+ */
 void saxpy(unsigned long n, float a,float y[], float x[])
 {
 #pragma omp parallel for
@@ -58,6 +28,15 @@ void saxpy(unsigned long n, float a,float y[], float x[])
 	}
 }
 
+/**
+ * @brief Entry point of the program for the SAXPY operation.
+ *
+ * This function initializes vectors, 'x' and 'y', with random values and performs
+ * the SAXPY operation on them using a scalar multiplier 'A'. The size of the vectors
+ * is defined by the constant 'size'.
+ *
+ * @return 0 on successful execution.
+ */
 int main(void)
 {
   const unsigned long size=1000000;
@@ -75,6 +54,14 @@ int main(void)
     /* generate secret number between 1 and 1000000: */
     x[i] = rand() % 1000000 + 1;
   }
+  /**
+ * @brief Measure the execution time of the SAXPY operation.
+ *
+ * @param size The size of the vectors 'x' and 'y'.
+ * @param A The scalar multiplier for the SAXPY operation.
+ * @param y The output vector modified in place.
+ * @param x The input vector.
+ */
   clock_t begin = clock();
   saxpy(size,A,y,x);
   clock_t end = clock();
